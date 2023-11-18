@@ -8,7 +8,8 @@ abstract class ProductsEvent extends Equatable {
 }
 
 class GetProducts extends ProductsEvent {
-  const GetProducts();
+final String? sort;
+  const GetProducts({ this.sort});
 }
 
 class GetProductsByCoterory extends ProductsEvent {

@@ -1,26 +1,17 @@
 part of 'products_bloc.dart';
 
-abstract class ProductsState extends Equatable {
-  const ProductsState();
-
-  @override
-  List<Object> get props => [];
+@freezed
+class ProductsState with _$ProductsState {
+  factory ProductsState({
+    required List<AllProductsModel> productsData,
+    required FormzSubmissionStatus productsStatus,
+    required List<String> productsByCotegoryData,
+    required FormzSubmissionStatus productsByCotegoryStatus,
+  }) = _ProductsState;
+  factory ProductsState.inital() => ProductsState(
+        productsData: List<AllProductsModel>.empty(),
+        productsStatus: FormzSubmissionStatus.initial,
+        productsByCotegoryData: List<String>.empty(),
+        productsByCotegoryStatus: FormzSubmissionStatus.initial,
+      );
 }
-
-class ProductsInitial extends ProductsState {}
-
-class ProductsLoading extends ProductsState {}
-
-class ProductsLoaded extends ProductsState {
-  final List<AllProductsModel> data;
-  const ProductsLoaded(this.data);
-}
-
-class ProductsByCotegoryLoaded extends ProductsState {
-  final List<String> data;
-  const ProductsByCotegoryLoaded(this.data);
-}
-
-class ProductsError extends ProductsState {}
-
-class ProductsNetwork extends ProductsState {}

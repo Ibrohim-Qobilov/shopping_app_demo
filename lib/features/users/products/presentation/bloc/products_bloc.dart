@@ -1,46 +1,54 @@
 import 'dart:async';
-import 'dart:io';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:formz/formz.dart';
 import 'package:shoping_app/features/users/products/data/datasources/products_datasources.dart';
 import 'package:shoping_app/features/users/products/data/models/all_products_model.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'products_event.dart';
 part 'products_state.dart';
+part 'products_bloc.freezed.dart';
 
 class ProductsBloc extends Bloc<ProductsEvent, ProductsState> {
-  ProductsDataSources repository;
-  ProductsBloc(this.repository) : super(ProductsInitial()) {
+  final ProductsDataSources repository;
+  ProductsBloc(this.repository) : super(ProductsState.inital()) {
     on<GetProducts>(_getProduct);
     on<GetProductsByCoterory>(_getProductBYCotegory);
   }
 
-  FutureOr<void> _getProduct(event, emit) async {
+  FutureOr<void> _getProduct(
+    GetProducts event,
+    Emitter<ProductsState> emit,
+  ) async {
     try {
-      emit(ProductsLoading());
+      emit(state.copyWith(productsStatus: FormzSubmissionStatus.inProgress));
+      final data = await repository.getproducts(sort: event.sort!);
 
-      final mList = await repository.getproducts();
-
-      emit(ProductsLoaded(mList));
-    } on SocketException {
-      emit(ProductsNetwork());
+      emit(state.copyWith(
+        productsData: data,
+        productsStatus: FormzSubmissionStatus.success,
+      ));
     } catch (ee) {
-      emit(ProductsError());
+      emit(state.copyWith(productsStatus: FormzSubmissionStatus.failure));
     }
   }
 
   FutureOr<void> _getProductBYCotegory(
-      GetProductsByCoterory event, emit) async {
+    GetProductsByCoterory event,
+    Emitter<ProductsState> emit,
+  ) async {
     try {
-      emit(ProductsLoading());
-
-      final mList = await repository.getproductsByFilter();
-
-      emit(ProductsByCotegoryLoaded(mList));
-    } on SocketException {
-      emit(ProductsNetwork());
+      emit(state.copyWith(
+          productsByCotegoryStatus: FormzSubmissionStatus.inProgress));
+      final data = await repository.getproductsByFilter();
+      emit(state.copyWith(
+        productsByCotegoryData: data,
+        productsByCotegoryStatus: FormzSubmissionStatus.success,
+      ));
     } catch (ee) {
-      emit(ProductsError());
+      emit(state.copyWith(
+          productsByCotegoryStatus: FormzSubmissionStatus.failure));
     }
   }
 }
