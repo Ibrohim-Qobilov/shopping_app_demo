@@ -6,6 +6,7 @@ import 'package:shoping_app/assets/constants/icons.dart';
 import 'package:shoping_app/features/common/presentation/widgets/loading.dart';
 import 'package:shoping_app/features/common/presentation/widgets/w_app_bar.dart';
 import 'package:shoping_app/features/users/products/presentation/bloc/products_bloc.dart';
+import 'package:shoping_app/features/users/products/presentation/pages/basket_page.dart';
 import 'package:shoping_app/features/users/products/presentation/widgets/bottom_sheet.dart';
 
 import 'package:shoping_app/features/users/products/presentation/widgets/card_widget.dart';
@@ -49,7 +50,10 @@ class _ProductPageState extends State<ProductPage> {
             title: 'Products',
             actions: [
               IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (_) => const BasketPage()));
+                },
                 icon: SvgPicture.asset(
                   AppIcons.basket,
                   height: 25,
@@ -93,11 +97,10 @@ class _ProductPageState extends State<ProductPage> {
                       );
                     });
               }
-              
+
               return const Center(
                 child: CupertinoActivityIndicator(),
               );
-              
             },
           ),
         );

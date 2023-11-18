@@ -1,3 +1,4 @@
+import 'package:shoping_app/features/admin/basket/presentation/pages/pasket_page.dart';
 import 'package:shoping_app/features/common/presentation/widgets/w_app_bar.dart';
 import 'package:shoping_app/features/common/presentation/widgets/w_button.dart';
 import 'package:shoping_app/features/users/products/presentation/pages/product_page.dart';
@@ -19,7 +20,12 @@ class MainPage extends StatelessWidget {
               border: Border.all(color: black),
               height: 40,
               width: 200,
-              onTap: () {},
+              onTap: () {
+                Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(builder: (_) => const BasketPage()),
+                    (route) => false);
+              },
               text: "Admin",
               textStyle: const TextStyle(
                 color: black,

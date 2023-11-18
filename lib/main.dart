@@ -1,6 +1,9 @@
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:shoping_app/utils/export_packages.dart.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Hive.initFlutter();
   ErrorWidget.builder = (FlutterErrorDetails details) {
     SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
     return Center(

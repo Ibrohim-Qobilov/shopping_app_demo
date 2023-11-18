@@ -5,11 +5,7 @@ import 'package:shoping_app/utils/export_packages.dart.dart';
 class ButtomSheet extends StatefulWidget {
   final List<String>? data;
   final ProductsBloc? bloc;
-  const ButtomSheet({
-    Key? key,
-    this.data,
-    this.bloc,
-  }) : super(key: key);
+  const ButtomSheet({Key? key, this.data, this.bloc}) : super(key: key);
 
   @override
   State<ButtomSheet> createState() => _ButtomSheetState();
@@ -38,7 +34,6 @@ class _ButtomSheetState extends State<ButtomSheet> {
                     String listCategories = widget.data![index];
                     ProductsDataSources()
                         .getproductsByFilterSreach(listCategories);
-                    print(listCategories);
                     widget.bloc!.add(GetProducts(sort: sortList[index]));
 
                     setState(() {});

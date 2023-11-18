@@ -1,8 +1,7 @@
-// To parse this JSON data, do
-//
-//     final allProductsModel = allProductsModelFromJson(jsonString);
-
 import 'dart:convert';
+import 'package:hive/hive.dart';
+
+part 'all_products_model.g.dart';
 
 List<AllProductsModel> allProductsModelFromJson(String str) =>
     List<AllProductsModel>.from(
@@ -11,13 +10,21 @@ List<AllProductsModel> allProductsModelFromJson(String str) =>
 String allProductsModelToJson(List<AllProductsModel> data) =>
     json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
+@HiveType(typeId: 0)
 class AllProductsModel {
+  @HiveField(0)
   final int id;
+  @HiveField(1)
   final String title;
+  @HiveField(2)
   final double price;
+  @HiveField(3)
   final String description;
+  @HiveField(4)
   final Category category;
+  @HiveField(5)
   final String image;
+  @HiveField(6)
   final Rating rating;
 
   AllProductsModel({
