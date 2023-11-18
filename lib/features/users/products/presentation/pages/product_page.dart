@@ -79,7 +79,11 @@ class _ProductPageState extends State<ProductPage> {
           body: Builder(
             builder: (context) {
               if (state.productsByCotegoryStatus.isFailure) {
-                return const Loading();
+                return Container(
+                  alignment: Alignment.center,
+                  color: white,
+                  child: const CupertinoActivityIndicator(color: black),
+                );
               } else if (state.productsByCotegoryStatus.isSuccess) {
                 var data = state.productsData;
                 return GridView.builder(

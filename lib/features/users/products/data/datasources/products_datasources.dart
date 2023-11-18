@@ -5,6 +5,10 @@ import 'package:shoping_app/features/users/products/data/models/all_products_mod
 import 'package:http/http.dart' as http;
 
 class ProductsDataSources {
+  ProductsDataSources._();
+  static ProductsDataSources instance = ProductsDataSources._();
+  factory ProductsDataSources() => instance;
+  late Box<AllProductsModel> box;
   String boxName = 'products';
   Future<List<AllProductsModel>> getproducts({required String sort}) async {
     var response = await http.get(
@@ -44,15 +48,18 @@ class ProductsDataSources {
   }
 
   Future<Box> openBox() async {
-    Box box = await Hive.openBox<AllProductsModel>(boxName);
+    Hive.registerAdapter(CategoryAdapter());
+    Hive.registerAdapter(RatingAdapter());
+    Hive.registerAdapter(AllProductsModelAdapter());
+    box = await Hive.openBox<AllProductsModel>(boxName);
     return box;
   }
 
-  List<AllProductsModel> getProductsList(Box box) {
-    return box.values.toList() as List<AllProductsModel>;
+  List<AllProductsModel> getProductsList() {
+    return box.values.toList();
   }
 
-  Future<void> addProductTolist(Box box, AllProductsModel product) async {
+  Future<void> addProductTolist(AllProductsModel product) async {
     await box.put(product.id, product);
   }
 

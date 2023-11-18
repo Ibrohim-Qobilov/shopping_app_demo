@@ -1,9 +1,12 @@
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:shoping_app/features/users/products/data/datasources/products_datasources.dart';
 import 'package:shoping_app/utils/export_packages.dart.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  
   await Hive.initFlutter();
+  await ProductsDataSources().openBox();
   ErrorWidget.builder = (FlutterErrorDetails details) {
     SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
     return Center(

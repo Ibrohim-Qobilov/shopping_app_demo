@@ -4,6 +4,7 @@ import 'package:shoping_app/assets/constants/icons.dart';
 import 'package:shoping_app/features/common/presentation/widgets/cached_image_network.dart';
 import 'package:shoping_app/features/common/presentation/widgets/w_rating_bar.dart';
 import 'package:shoping_app/features/common/presentation/widgets/w_sixed_box.dart';
+import 'package:shoping_app/features/users/products/data/datasources/products_datasources.dart';
 import 'package:shoping_app/features/users/products/data/models/all_products_model.dart';
 import 'package:shoping_app/features/users/products/presentation/pages/product_detail.dart';
 import 'package:shoping_app/utils/export_packages.dart.dart';
@@ -76,7 +77,9 @@ class CardWidget extends StatelessWidget {
           top: 10,
           right: 10,
           child: InkWell(
-            onTap: () {},
+            onTap: () {
+              ProductsDataSources().addProductTolist(data!);
+            },
             child: Container(
               height: 30,
               width: 30,

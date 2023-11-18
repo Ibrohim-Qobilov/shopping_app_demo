@@ -59,8 +59,18 @@ class AllProductsModel {
       };
 }
 
+@HiveType(typeId: 1)
 // ignore: constant_identifier_names
-enum Category { ELECTRONICS, JEWELERY, MEN_S_CLOTHING, WOMEN_S_CLOTHING }
+enum Category {
+  @HiveField(0)
+  ELECTRONICS,
+  @HiveField(1)
+  JEWELERY,
+  @HiveField(2)
+  MEN_S_CLOTHING,
+  @HiveField(3)
+  WOMEN_S_CLOTHING,
+}
 
 final categoryValues = EnumValues({
   "electronics": Category.ELECTRONICS,
@@ -69,8 +79,11 @@ final categoryValues = EnumValues({
   "women's clothing": Category.WOMEN_S_CLOTHING
 });
 
+@HiveType(typeId: 2)
 class Rating {
+  @HiveField(0)
   final double rate;
+  @HiveField(1)
   final int count;
 
   Rating({
